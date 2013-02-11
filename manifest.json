@@ -5,7 +5,8 @@
   "description": "Allow convenient editing of URL parameters",
   "version": "1.0",
   "permissions": [
-    "tabs"
+    "tabs",
+    "storage"
   ],
   "browser_action": {
     "default_icon": "icon.png",

@@ -52,7 +52,8 @@ function add_param(){
   $('.remove').off('click')
   $('.add').click(add_param)
   $('.remove').click(remove_param)
-  $('.paramName').last().focus()
+  $(this).parents('tr').first().next().find('.paramName').focus()
+  //$('.paramName').last().focus()
 }
 
 function remove_param(){
@@ -77,37 +78,40 @@ $(document).ready(function(){
     $('#url').append('<tr class="name"  id="port"><td>port:</td><td class="input"><input type=text value="'+port+'"></input></td></tr>')
     $('#url').append('<tr class="name"  id="pathname"><td>pathname:</td><td class="input"><input type=text value="'+pathname+'"></input></td></tr>')
     
-    sorted = localStorage['sorted']
-    if (sorted == undefined){
-      sorted = true
-      localStorage.sorted = true
-    }
-    if (sorted) {
-      sorted_check = "checked"
-      url_check = ""
-    } else {
-      sorted_check = ""
-      url_check = "checked"
-    }
-    
-    $('#url').append('<tr class="name"  id="search"><td>search:<br/>\
-                     <input type="radio" class="paramSort" '+sorted_check+' name="sort" value="sorted">Sorted</input><br/>\
-                     <input type="radio" class="paramSort" '+url_check+' name="sort" value="url">URL</input>\
-                     </td><td class="input" id="searchRight"></td></tr>')
-    resetSearch(search, sorted)
-    
-    $('input.paramSort').click(function(){
-      if ($(this).attr('value') == 'sorted'){
-        localStorage.sorted = true
-        resetSearch(search, true)
-      }else{
-        localStorage.sorted = false
-        resetSearch(search, false)
+    chrome.storage.local.get('sorted', function(settings){
+      sorted = settings['sorted']
+      if (sorted == undefined){
+        sorted = true
+        chrome.storage.local.set({'sorted': true})
       }
-    })
-    
-    $('#url').append('<tr class="name"  id="hash"><td>hash:</td><td class="input"><input type=text value="'+hash+'"></input></td></tr>')
-    
+      if (sorted) {
+        sorted_check = "checked"
+        url_check = ""
+      } else {
+        sorted_check = ""
+        url_check = "checked"
+      }
+      
+      $('#url').append('<tr class="name"  id="search"><td>search:<br/>\
+                       <input type="radio" class="paramSort" '+sorted_check+' name="sort" value="sorted">Sorted</input><br/>\
+                       <input type="radio" class="paramSort" '+url_check+' name="sort" value="url">URL</input>\
+                       </td><td class="input" id="searchRight"></td></tr>')
+      resetSearch(search, sorted)
+      
+      $('input.paramSort').click(function(){
+        if ($(this).attr('value') == 'sorted'){
+          localStorage.sorted = true
+          chrome.storage.local.set({'sorted': true})
+          resetSearch(search, true)
+        }else{
+          localStorage.sorted = false
+          chrome.storage.local.set({'sorted': false})
+          resetSearch(search, false)
+        }
+      })
+      
+      $('#url').append('<tr class="name"  id="hash"><td>hash:</td><td class="input"><input type=text value="'+hash+'"></input></td></tr>')
+    });
     
     $('input#go').on('click submit', function(){
       url.protocol = $('#protocol input').val().trim()
