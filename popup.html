@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Developer URL Bar</title>
+    <style>
+      body {min-width: 500px;font-family: monospace}
+      td.name {white-space: nowrap;}
+      td.input {width:100%}
+      input[type=text] {width: 100%;font-family: monospace}
+      input.paramName  {width:5em}
+      input.remove     {margin-left:9px}
+      input#go {float:right}
+      input[type=button] {border:1px solid #000}
+    </style>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <form>
+    <table id="url" style="width:100%">
+    </table>
+    <input type="submit" id="go" value="Go">
+    </form>
+  </body>
+</html>
+
