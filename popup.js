@@ -40,6 +40,9 @@ function resetSearch(search, sorted){
     $('#searchParams').append('<tr class="param"><td class=name>&nbsp;&nbsp;</td><td class="name"><input class="paramName" type="text" value=""></input></td><td class="input"><input class="paramValue" type="text" value=""></input></td><td><input type="button" class="remove" value="-"></input></td><td><input type="button" class="add" value="+"></input></td></tr>')
   }
   
+  $('.add').click(add_param)
+  $('.remove').click(remove_param)
+  
   $('tr.param .paramName').first().focus()
 }
 
@@ -105,9 +108,6 @@ $(document).ready(function(){
     
     $('#url').append('<tr class="name"  id="hash"><td>hash:</td><td class="input"><input type=text value="'+hash+'"></input></td></tr>')
     
-    
-    $('.add').click(add_param)
-    $('.remove').click(remove_param)
     
     $('input#go').on('click submit', function(){
       url.protocol = $('#protocol input').val().trim()
