@@ -7,8 +7,10 @@ function parseUrl( url ) {
 function parseSearch(search, sorted){
   //strip off leading ?
   search = search.replace(/^\?/, "")
+  search = search.replace(/\+/, " ")
   var pairs = [];
   var params = search.split('&')
+  
   for (var i=0; i<params.length; i++){
     param = params[i]
     if (param != ""){
@@ -24,7 +26,15 @@ function parseSearch(search, sorted){
     }
   }
   if (sorted) {
-    pairs = pairs.sort();
+    pairs = pairs.sort(function(a, b){
+      if (a.toString().toLowerCase() < b.toString().toLowerCase()){
+        return -1
+      }else if (a.toString().toLowerCase() < b.toString().toLowerCase()){
+        return 0
+      }else{
+        return 1
+      }
+    });
   }
   return pairs
 }
