@@ -3,7 +3,7 @@
 
   "name": "Developer URL bar",
   "description": "Allow convenient editing of URL parameters",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "permissions": [
     "tabs",
     "storage"

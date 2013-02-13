@@ -21,7 +21,7 @@ function parseSearch(search, sorted){
       if (pair.length > 2){
         pair = [pair[0], pair.slice(1).join("")]
       }
-      pair = [decodeURIComponent(pair[0]), decodeURIComponent(pair[1])]
+      pair = [decodeURIComponent(pair[0]).replace(/"/g, "&quot;"), decodeURIComponent(pair[1]).replace(/"/g, "&quot;")]
       pairs.push(pair)
     }
   }
@@ -81,7 +81,7 @@ $(document).ready(function(){
     port = url.port
     pathname=url.pathname
     search = url.search
-    hash = url.hash
+    hash = url.hash.replace(/"/g, "&quot;")
     
     $('#url').append('<tr class="name" id="protocol"><td>protocol:</td><td class="input"><input type=text value="'+protocol+'"></input></td></tr>')
     $('#url').append('<tr class="name"  id="hostname"><td>hostname:</td><td class="input"><input type=text value="'+hostname+'"></input></td></tr>')
